@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Universal Checklist</title>
+    <script src="main.js"></script>
+
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <nav>
+        <ul class="genSelection">
+            <li class="genSelector" onclick="changeGen(this)" data-id="1G">1G</li>
+            <li class="genSelector" onclick="changeGen(this)" data-id="2G">2G</li>
+            <li class="genSelector" onclick="changeGen(this)" data-id="3G">3G</li>
+            <li class="genSelector" onclick="changeGen(this)" data-id="4G">4G</li>
+            <li class="genSelector" onclick="changeGen(this)" data-id="5G">5G</li>
+            <li class="genSelector" onclick="changeGen(this)" data-id="6G">6G</li>
+            <li class="genSelector" onclick="changeGen(this)" data-id="7G">7G</li>
+            <li class="genSelector" onclick="changeGen(this)" data-id="8G">8G</li>
+            <li class="genSelector" onclick="changeGen(this)" data-id="9G">9G</li>
+        </ul>
+
+        <ul class="gameSelection" id="1G">
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="red">Rouge</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="blue">Bleu</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="yellow">Jaune</li>
+        </ul>
+        <ul class="gameSelection" id="2G">
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="silver">Argent</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="gold">Or</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="crystal">Cristal</li>
+        </ul>
+        <ul class="gameSelection" id="3G">
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="ruby">Rubis</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="sapphire">Saphir</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="emerald">Emeraude</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="firered">Rouge F.</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="leafgreen">Vert F.</li>
+        </ul>
+        <ul class="gameSelection" id="4G">
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="diamond">Diamant</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="pearl">Perle</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="platinum">Platine</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="heartgold">HeartGold</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="soulsilver">SoulSilver</li>
+        </ul>
+        <ul class="gameSelection" id="5G">
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="black">Noir</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="white">Blanc</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="black2">Noir 2</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="white2">Blanc 2</li>
+        </ul>
+        <ul class="gameSelection" id="6G">
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="x">&nbsp;&nbsp;X&nbsp;&nbsp;</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="y">&nbsp;&nbsp;Y&nbsp;&nbsp;</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="omegaruby">Rubis Omega</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="alphasapphire">Saphir Alpha</li>
+        </ul>
+        <ul class="gameSelection" id="7G">
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="sun">Soleil</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="moon">Lune</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="ultrasun">Ultra Soleil</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="ultramoon">Ultra Lune</li>
+        </ul>
+        <ul class="gameSelection" id="8G">
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="sword">Épée</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="shield">Bouclier</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="brilliantdiamond">Diamand E.</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="shiningpearl">Perle S.</li>
+        </ul>
+        <ul class="gameSelection" id="9G">
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="scarlet">Écarlate</li>
+            <li onclick="changeGame(this)" class="gameSelector"  data-id="Violet">Violet</li>
+        </ul>
+    </nav>
+    <main>
+        <section class="gameSection active" id="info">Test</section>
+        <section class="gameSection" id="red"></section>
+        <section class="gameSection" id="blue"></section>
+        <section class="gameSection" id="yellow"></section>
+        <section class="gameSection" id="silver"></section>
+        <section class="gameSection" id="gold"></section>
+        <section class="gameSection" id="crystal"></section>
+        <section class="gameSection" id="ruby"></section>
+        <section class="gameSection" id="sapphire"></section>
+        <section class="gameSection" id="emerald"></section>
+        <section class="gameSection" id="firered"></section>
+        <section class="gameSection" id="leafgreen"></section>
+        <section class="gameSection" id="diamond"></section>
+        <section class="gameSection" id="pearl"></section>
+        <section class="gameSection" id="platinum"></section>
+        <section class="gameSection" id="heartgold"></section>
+        <section class="gameSection" id="soulsilver"></section>
+        <section class="gameSection" id="black"></section>
+        <section class="gameSection" id="white"></section>
+        <section class="gameSection" id="black2"></section>
+        <section class="gameSection" id="white2"></section>
+        <section class="gameSection" id="x"></section>
+        <section class="gameSection" id="y"></section>
+        <section class="gameSection" id="omegaruby"></section>
+        <section class="gameSection" id="alphasapphire"></section>
+        <section class="gameSection" id="sun"></section>
+        <section class="gameSection" id="moon"></section>
+        <section class="gameSection" id="ultrasun"></section>
+        <section class="gameSection" id="ultramoon"></section>
+        <section class="gameSection" id="sword"></section>
+        <section class="gameSection" id="shield"></section>
+        <section class="gameSection" id="brilliantdiamond"></section>
+        <section class="gameSection" id="shiningpearl"></section>
+        <section class="gameSection" id="scarlet"></section>
+        <section class="gameSection" id="violet"></section>    
+    </main>
+</body>
+</html>
