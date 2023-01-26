@@ -188,16 +188,20 @@ const dexData = {
 
 const genLimit = [0,151,251,386,493,649,721,809,905,1008]
 
+function removeClass(selector, classToRemove, cleanInnerHTML = false) {
+    let prec = document.querySelectorAll(selector);
+    prec.forEach(elem => {
+        if (cleanInnerHTML) { elem.innerHTML = "" }
+        elem.classList.remove(classToRemove);
+    })
+} 
+
 // SECTION Tab management²
 function changeGen(genSelector) {
-    let precSelected = document.querySelectorAll('.genSelector.active');
-    precSelected.forEach(elem => {
-        elem.classList.remove('active');
-    });
-    let precTargeted = document.querySelectorAll('.gameSelection.active');
-    precTargeted.forEach(elem => {
-        elem.classList.remove('active');
-    });
+    // input: HTMLElement (made for .genSelector Element)
+    // Put active on selected gen, show matching games & put focus on the first game of the list
+    removeClass('.genSelector.active', 'active')
+    removeClass('.gameSelection.active', 'active')
 
     const selectedGen = genSelector.getAttribute('data-id');
     let targetedGen = document.getElementById(selectedGen);
@@ -206,19 +210,15 @@ function changeGen(genSelector) {
     console.log(`❕  Class active switched on ${selectedGen}`);
 
     // Focus on the first game of the selected gen
+    // childNodes[0] is a blank text node
     changeGame(targetedGen.childNodes[1])
 }
 
 function changeGame(gameSelector) {
-    let precSelected = document.querySelectorAll('.gameSelector.active');
-    precSelected.forEach(elem => {
-        elem.classList.remove('active');
-    });
-    let precTargeted = document.querySelectorAll('.gameSection.active');
-    precTargeted.forEach(elem => {
-        elem.classList.remove('active');
-        elem.innerHTML = ""
-    });
+    // input: HTMLElement (made for .gameSelector Element)
+    // Put active on selected game & show the matching .gameSection 
+    removeClass('.gameSelector.active', 'active');
+    removeClass('.gameSection.active', 'active', true);
 
     const selectedGame = gameSelector.getAttribute('data-id');
     let targetedGame = document.getElementById(selectedGame);
@@ -231,6 +231,8 @@ function changeGame(gameSelector) {
 }
 
 function addProgressBar(selectedGame) {
+    // input: id of the game (string)
+    // Add the progress bar & the clear button to the gameSection
     let targetedGame = document.getElementById(selectedGame);
     const dexSize = dexData[selectedGame].total;
     const stored = readArray(selectedGame);
@@ -256,17 +258,21 @@ function addGenTitle(text, target) {
 }
 
 function proliferate(selectedGame) {
+    // input: id of the game (string)
+    // Add the pokemon images to the gameSection
     let targetedGame = document.getElementById(selectedGame);
     const pokedexSize = dexData[selectedGame].number;
     const exclusions = dexData[selectedGame].excludes
     const stored = readArray(selectedGame)
 
+    // go from one item in the genLimit array to the other
+    // used to divide pokemon list by generation and add gentitle between them
     for (let i = 0; i < genLimit.length-1; i++) {
-        if (genLimit[i] >= pokedexSize) { break; }
+        if (genLimit[i] >= pokedexSize) { break; } // stop the process if the current genLimit exceed the size of the pokedex of that gen
         let wrapper = document.createElement('div');
         wrapper.classList.add('flex');
         addGenTitle(`${i+1}G`, targetedGame)
-        for (let j = genLimit[i]; j < genLimit[i+1]; j++ ) {
+        for (let j = genLimit[i]; j < genLimit[i+1]; j++ ) { // 0 to 151, 152 to 251, ...
             if (exclusions.includes(j+1)) { continue }
             wrapper.appendChild(newImage(selectedGame, j+1, stored)) 
         }
@@ -276,10 +282,12 @@ function proliferate(selectedGame) {
 }
 
 function newImage(game, number, stored) {
+    // Generate HTML Element for each images
     let image = document.createElement('img');
     image.setAttribute('src', `./images/${dexData[game].folder}/${number}.png`)
     image.setAttribute('id', `${game}_${number}`)
 
+    // set if the pokemon was already catch
     if (stored?.includes(number.toString())) { image.classList.add('catch') }
 
     image.setAttribute('onclick', 'gotcha(this)')
@@ -287,9 +295,7 @@ function newImage(game, number, stored) {
 } //!SECTION
 
 // SECTION Data Storage
-function readArray(game) {
-    return localStorage.getItem(game)?.split(',')
-}
+function readArray(game) { return localStorage.getItem(game)?.split(',') }
 
 function updateProgress(targetedGame) {
     let bar = targetedGame.querySelector('progress');
@@ -303,10 +309,7 @@ function clearData(game) {
     const targetedGame = game.id;
     localStorage.removeItem(targetedGame);
 
-    let catchs = document.querySelectorAll('.catch');
-    catchs.forEach(elem => {
-        elem.classList.remove('catch');
-    });
+    removeClass('.catch', 'catch')
 
     updateProgress(game)
 }
@@ -316,6 +319,9 @@ function gotcha(pokemon) {
     const pokemonInfo = pokemon.id.split('_')
 
     let stored = readArray(pokemonInfo[0])
+    // if array don't exist, initialize it and include the current pokemon
+    // if it exists and the pokemon is in, remove it
+    // else, add it into the array and store it
     if (stored == undefined) { 
         localStorage.setItem(pokemonInfo[0], pokemonInfo[1])
     } else if (stored.includes(pokemonInfo[1])) {
