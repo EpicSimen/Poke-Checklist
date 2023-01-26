@@ -233,12 +233,18 @@ function addProgressBar(selectedGame) {
     const dexSize = dexData[selectedGame].total;
     const stored = readArray(selectedGame);
     const catchNumber = stored?.length ? stored.length : 0; // workaround for when no data is stored atm
+    
+    const clearButton = document.createElement("input")
+    clearButton.setAttribute('type', 'button')
+    clearButton.setAttribute('value', 'Clear')
+    clearButton.setAttribute('onclick', 'clearData(this.parentNode)')
 
     const bar = document.createElement("progress");
     bar.setAttribute("max", dexSize);
     bar.setAttribute("value", catchNumber);
 
     targetedGame.appendChild(bar)
+    targetedGame.appendChild(clearButton)
 }
 
 function proliferate(selectedGame) {
@@ -273,13 +279,24 @@ function readArray(game) {
     return localStorage.getItem(game)?.split(',')
 }
 
-function updateProgress(pokemon) {
-    const targetedGame = pokemon.parentNode.parentNode;
+function updateProgress(targetedGame) {
     let bar = targetedGame.querySelector('progress');
     const stored = readArray(targetedGame.id);
-    const catchNumber = stored.length;
+    const catchNumber = stored?.length ? stored.length : 0; // workaround for when no data is stored atm
 
     bar.setAttribute("value", catchNumber)
+}
+
+function clearData(game) {
+    const targetedGame = game.id;
+    localStorage.removeItem(targetedGame);
+
+    let catchs = document.querySelectorAll('.catch');
+    catchs.forEach(elem => {
+        elem.classList.remove('catch');
+    });
+
+    updateProgress(game)
 }
 
 function gotcha(pokemon) {
@@ -296,5 +313,5 @@ function gotcha(pokemon) {
         localStorage.setItem(pokemonInfo[0], stored.filter(val => val != "")) // stored.filter removes any void string
     }
 
-    updateProgress(pokemon)
+    updateProgress(pokemon.parentNode.parentNode)
 } // !SECTION
