@@ -186,6 +186,8 @@ const dexData = {
     "violet": {}
 }
 
+const genLimit = [0,151,251,386,493,649,721,809,905,1008]
+
 // SECTION Tab management²
 function changeGen(genSelector) {
     let precSelected = document.querySelectorAll('.genSelector.active');
@@ -247,20 +249,30 @@ function addProgressBar(selectedGame) {
     targetedGame.appendChild(clearButton)
 }
 
+function addGenTitle(text, target) {
+    let title = document.createElement('h2');
+    title.innerText = text;
+    target.appendChild(title)
+}
+
 function proliferate(selectedGame) {
     let targetedGame = document.getElementById(selectedGame);
     const pokedexSize = dexData[selectedGame].number;
     const exclusions = dexData[selectedGame].excludes
     const stored = readArray(selectedGame)
-    let wrapper = document.createElement('div')
-    wrapper.classList.add('flex')
 
-    for (let i = 0; i < pokedexSize; i++) { 
-        if (exclusions.includes(i+1)) { continue }
-        wrapper.appendChild(newImage(selectedGame, i+1, stored)) 
+    for (let i = 0; i < genLimit.length-1; i++) {
+        if (genLimit[i] >= pokedexSize) { break; }
+        let wrapper = document.createElement('div');
+        wrapper.classList.add('flex');
+        addGenTitle(`${i+1}G`, targetedGame)
+        for (let j = genLimit[i]; j < genLimit[i+1]; j++ ) {
+            if (exclusions.includes(j+1)) { continue }
+            wrapper.appendChild(newImage(selectedGame, j+1, stored)) 
+        }
+        targetedGame.appendChild(wrapper)
     }
 
-    targetedGame.appendChild(wrapper)
 }
 
 function newImage(game, number, stored) {
