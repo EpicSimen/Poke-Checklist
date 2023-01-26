@@ -6,6 +6,8 @@ body {
 
     -webkit-user-select: none;
     user-select: none; 
+
+    min-width: 375px;
 }
 
 nav { text-align: center; }
@@ -39,7 +41,7 @@ nav:first-child { margin-top: 15px; }
 
 main { text-align: center; }
 
-section.active {
+section.active .flex {
     display: inline-flex;
     max-width: 1200px;
     justify-content: center;
